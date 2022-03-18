@@ -1,0 +1,3 @@
+select teacher.name, student.name from student, course,
+teacher where student.id = course.sid and course.id =
+'COMP217005' and teacher.id = course.tid;
