@@ -1,5 +1,13 @@
 package class_3rd.HW2;
 
+/**
+ * Title : HW#1 - calcTotalPrice
+ * StudentId : 2019118024
+ * Department : School of Computer Science and Engineering
+ * Name : Jong In Baek
+ * @autohr yksuh
+ */
+
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;

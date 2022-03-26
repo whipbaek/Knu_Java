@@ -1,6 +1,14 @@
 package class_3rd.HW2;
 
-import java.io.File;
+/**
+ * Title : HW#2 - StringChangeV2
+ * StudentId : 2019118024
+ * Department : School of Computer Science and Engineering
+ * Name : Jong In Baek
+ * @autohr yksuh
+ */
+
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -36,6 +44,7 @@ public class StringChangeV2 {
                     System.out.println(temp);
                 }
             } catch (FileNotFoundException e) {
+                System.out.println("There's no file");
                 e.printStackTrace();
             }
         }
