@@ -7,7 +7,7 @@ public class PubTrasp {
     private String Selection;
     private String Payment_method;
     private String Type;
-    private static int sequence = 1;
+    public static int sequence = 1;
 
     public double calculateTotalFare() {
         double Total=0;
@@ -61,7 +61,7 @@ public class PubTrasp {
     }
 
     public String describeTicketSpec(){
-        String Summary = new String("Ticket " + (sequence++) + " : " + Fare + ", " + Payment_method + ", "
+        String Summary = new String("Ticket " + (sequence) + " : " + Fare + ", " + Payment_method + ", "
                 + Selection + ", " + Type + ", " + calculateTotalFare() + " KRW");
 
         return Summary;
