@@ -1,8 +1,6 @@
 package class_4th.HW3;
 
-import java.awt.geom.AffineTransform;
-
-public class PubTrasp {
+public class PubTrasp_HW3 {
     private String Fare;
     private String Selection;
     private String Payment_method;

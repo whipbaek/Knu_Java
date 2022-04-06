@@ -1,10 +1,9 @@
 package class_4th.HW3;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
-import static class_4th.HW3.PubTrasp.sequence;
+import static class_4th.HW3.PubTrasp_HW3.sequence;
 
 public class TicketPurchase {
 
@@ -21,10 +20,10 @@ public class TicketPurchase {
         cnt = sc.nextInt();
         sc.nextLine();
 
-        ArrayList<PubTrasp> list = new ArrayList<>();
+        ArrayList<PubTrasp_HW3> list = new ArrayList<>();
         while(true){
 
-            list.add(new PubTrasp());
+            list.add(new PubTrasp_HW3());
             char correct;
 
             System.out.println("Provide the information of ticket " + (sequence));
@@ -68,8 +67,8 @@ public class TicketPurchase {
 
         System.out.println("list.size = " + list.size());
         int Total=0;
-        for (PubTrasp pubTrasp : list) {
-            Total += pubTrasp.calculateTotalFare();
+        for (PubTrasp_HW3 pubTraspHW3 : list) {
+            Total += pubTraspHW3.calculateTotalFare();
         }
 
         System.out.println("Your Total price : " + Total);
