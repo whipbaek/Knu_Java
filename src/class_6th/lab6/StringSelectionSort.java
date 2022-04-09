@@ -25,6 +25,7 @@ public class StringSelectionSort {
 
         }
 
+        System.out.println();
         System.out.println("ArrayList values after sorting :");
         for (String s : stringArrayList) System.out.println(s);
     }

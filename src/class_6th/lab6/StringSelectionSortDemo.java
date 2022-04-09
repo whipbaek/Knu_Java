@@ -17,7 +17,7 @@ public class StringSelectionSortDemo {
             arrayList.add(temp);
         }
 
-        for (String s : arrayList) System.out.println("s = " + s);
+        StringSelectionSort.sort(arrayList);
 
         keyboard.close();
     }

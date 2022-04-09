@@ -1,55 +1,61 @@
-/****
- * Lab #5-3: A program to read golf scores and shows how much each differs from the average
- * @author yksuh
- *
- */
+package class_6th.lab6;
+import java.util.ArrayList;
 import java.util.Scanner;
 
-public class GolfScoreV2 {
+public class GolfScore {
 
-	public static final int MAX_NUMBER_SCORES = 10;
-	
-	// shows the differences between each of a list of golf scores 
-	// and their average
 	public static void main(String[] args) {
-		PartiallyFilledArray score = 
-				new PartiallyFilledArray(MAX_NUMBER_SCORES);
+		ArrayList<Double> score = new ArrayList<Double>();
+
 		System.out.println("This program reads golf scores and shows");
 		System.out.println("how much each differs from the average.");
 		
 		System.out.println("Enter golf scores: ");
-		fillArray(score);
+		fillArrayList(score);
 		showDifference(score);
 	}
 	
-	// reads values into the PartiallyFilledArray a.
-	public static void fillArray(PartiallyFilledArray a) {
-		System.out.println("Enter up to " + a.getMaxCapacity() 
-			+ " nonnegative numbers, one per line.");
-		System.out.println("Mark the end of the list with a negative number");
+	private static void fillArrayList(ArrayList<Double> score) {
+		//음수이면 추가 멈춤
 		Scanner keyboard = new Scanner(System.in);
-		
+
+		System.out.println("Enter a list of nonnegative numbers.");
+		System.out.println("Mark the end of list with a negative number");
+
 		// fill out this code.
-		
+		while(true) {
+			double temp = keyboard.nextDouble();
+			if (temp < 0) break;
+			score.add(temp);
+		}
 		keyboard.close();
 	}
 	
-	public static void showDifference(PartiallyFilledArray a) {
-		double average = computeAverage(a);
-		System.out.println("Average of the " + a.getNumberOfElements() 
-		+ " scores = " + average);
-		
+	private static void showDifference(ArrayList<Double> score) {
+
+		double average = computeAverage(score);
+		System.out.println("Average of the " + score.size()
+				+ " scores = " + average);
+
 		System.out.println("The scores are:");
-		
-		// fill out this code.
+
+		for(int i=0; i<score.size(); i++)
+			System.out.println(score.get(i) + " differs from average by " + (score.get(i) - average));
 		
 	}
 	
-	public static double computeAverage(PartiallyFilledArray a) {
+	private static double computeAverage(ArrayList<Double> score) {
+		//평균값 구하기, 비어있으면 0 리턴
 		double avg = 0;
-		
-		// fill out this code.
-		
+
+		if(score == null){
+			System.out.println("ERROR: Trying to average 0 numbers");
+			return 0;
+		}
+
+		for(double v : score) avg += v;
+		avg = avg/score.size();
+
 		return avg;
 	}
 }
