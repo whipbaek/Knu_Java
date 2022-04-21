@@ -1,0 +1,6 @@
+Amy	Sales	2000	20	-1
+Tom	IT	2015	20	-1
+Jane	R&D	2022	20	-1
+Ben	R&D	2021	10	89
+Chloe	IT	2022	10	75
+Alexa	Sales	2021	10	88
