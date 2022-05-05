@@ -57,6 +57,7 @@ public class DealStation {
             break;
         }
 
+
         System.out.println("Thank you for your purchase. Here are your purcahse summary:\n");
 //        System.out.println(pubTrasps.get(i).toString());
         int j=1;
