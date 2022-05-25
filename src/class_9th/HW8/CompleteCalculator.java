@@ -5,14 +5,19 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class FullCalculator extends JFrame {
+public class CompleteCalculator extends JFrame {
 
     public static final int WIDTH = 400;
     public static final int HEIGHT = 600;
     public static int calCnt=0; //2가 되면 항상 바로 계산 및, 1로 초기화
     public static boolean equalPossible = false;
+    public static boolean dividePossible = true;
+    public static boolean backActivate = false;
+    public static boolean equalBackspace = false;
     public static String tempOperator;
     private String valStr= ""; //수식 저장용
+    private String[] operand;
+    private String backupString;
 
     private JButton j0 = new JButton("0");
     private JButton j1 = new JButton("1");
@@ -40,10 +45,10 @@ public class FullCalculator extends JFrame {
     private JPanel jp1 = new JPanel();
     private JPanel jp2 = new JPanel();
 
-
+    private double result = 0;
 
     public static void main(String[] args) {
-        FullCalculator fullCalculator = new FullCalculator();
+        CompleteCalculator fullCalculator = new CompleteCalculator();
         fullCalculator.FullCalc();
 
     }
@@ -89,6 +94,9 @@ public class FullCalculator extends JFrame {
         multi.addActionListener(new GetVal());
         divide.addActionListener(new GetVal());
         equal.addActionListener(new GetVal());
+
+        clear.addActionListener(new GetVal());
+        back.addActionListener(new GetVal());
 
     }
 
@@ -159,50 +167,98 @@ public class FullCalculator extends JFrame {
                         calCnt++;
                         break;
                     case "C":
+                        valStr = "";
+                        resultText.setText("");
+                        calCnt=0;
+                        break;
                     case "BACKSPACE":
+                        if(backupString != null && backupString.length()>2){
+                            valStr = backupString;
+                            calCnt = 2;
+                            backupString="";
+                        }
+                        Character ch = valStr.charAt(valStr.length()-1);
+                        if(ch.equals('+') || ch.equals('-') || ch.equals('*') || ch.equals('/') || ch.equals('=')){
+                            calCnt--;
+                        }
+                        valStr = valStr.substring(0,valStr.length()-1);
+                        break;
+                }
+                if(calCnt == 1){
+                    operand = valStr.split(tempOperator);
                 }
             }
 
             if(calCnt == 2){ //계산을 해야할 때
-                System.out.println("계산 할 때 입니다.");
-                System.out.println("계산 valStr = " + valStr);
-                System.out.println("now val : " + val);
-                System.out.println("tempOperator = " + tempOperator);
-                String[] operand = valStr.split(tempOperator);
-                for (String s : operand) {
-                    System.out.println("s = " + s);
-                }
-                int result;
 
-                System.out.println("tempOperator = " + tempOperator);
-
-                switch (tempOperator) {
-                    case "\\+":
-                        result = Integer.parseInt(operand[0]) + Integer.parseInt(String.valueOf(operand[1].charAt(0)));
-                        resultText.setText(Integer.toString(result));
-                        valStr = Integer.toString(result) + val;
-                        calCnt = 1;
-                        break;
-                    case "-":
-                        result = Integer.parseInt(operand[0]) - Integer.parseInt(String.valueOf(operand[1].charAt(0)));
-                        resultText.setText(Integer.toString(result));
-                        valStr = Integer.toString(result) + val;
-                        calCnt = 1;
-                        break;
-                    case "\\*":
-                        result = Integer.parseInt(operand[0]) * Integer.parseInt(String.valueOf(operand[1].charAt(0)));
-                        resultText.setText(Integer.toString(result));
-                        valStr = Integer.toString(result) + val;
-                        calCnt = 1;
-                        break;
-                    case "/":
-                        if (operand[1] != "0") {
-                            result = Integer.parseInt(operand[0]) + Integer.parseInt(String.valueOf(operand[1].charAt(0)));
-                            resultText.setText(Integer.toString(result));
-                            valStr = Integer.toString(result) + val;
+                if(val =="+" || val == "-" || val == "*" || val == "/") {
+                    switch (tempOperator) {
+                        case "\\+":
+                            result = Double.parseDouble(operand[0]) + Double.parseDouble(operand[1]);
+                            resultText.setText(Double.toString(result));
+                            valStr = result + val;
                             calCnt = 1;
                             break;
-                        }
+                        case "-":
+                            result = Double.parseDouble(operand[0]) - Double.parseDouble(operand[1]);
+                            resultText.setText(Double.toString(result));
+                            valStr = result + val;
+                            calCnt = 1;
+                            break;
+                        case "\\*":
+                            result = Double.parseDouble(operand[0]) * Double.parseDouble(operand[1]);
+                            resultText.setText(Double.toString(result));
+                            valStr = result + val;
+                            calCnt = 1;
+                            break;
+                        case "/":
+                            if (Double.parseDouble(operand[1]) != 0) {
+                                result = Double.parseDouble(operand[0]) / Double.parseDouble(operand[1]);
+                                resultText.setText(Double.toString(result));
+                                valStr = result + val;
+                                calCnt = 1;
+                                break;
+                            } else {
+                                calCnt=0;
+                                result=0;
+                                resultText.setText(valStr.substring(0, (valStr.length()-1)) +" Cant divide by 0");
+                                valStr = "";
+                                dividePossible = false;
+                            }
+                    }
+                }
+                else if(val == "="){ // "=" 일 때
+                    equalPossible = true;
+                    switch (tempOperator) {
+                        case "\\+":
+                            result = Double.parseDouble(operand[0]) + Double.parseDouble(operand[1]);
+                            resultText.setText(Double.toString(result));
+                            calCnt = 1;
+                            break;
+                        case "-":
+                            result = Double.parseDouble(operand[0]) - Double.parseDouble(operand[1]);
+                            resultText.setText(Double.toString(result));
+                            calCnt = 1;
+                            break;
+                        case "\\*":
+                            result = Double.parseDouble(operand[0]) * Double.parseDouble(operand[1]);
+                            resultText.setText(Double.toString(result));
+                            calCnt = 1;
+                            break;
+                        case "/":
+                            if (Double.parseDouble(operand[1]) != 0) {
+                                result = Double.parseDouble(operand[0]) / Double.parseDouble(operand[1]);
+                                resultText.setText(Double.toString(result));
+                                calCnt = 1;
+                                break;
+                            } else {
+                                calCnt=0;
+                                result=0;
+                                resultText.setText(valStr.substring(0, (valStr.length()-1)) +" Cant divide by 0");
+                                valStr = "";
+                                dividePossible = false;
+                            }
+                    }
 
                 }
 
@@ -211,16 +267,26 @@ public class FullCalculator extends JFrame {
                     case "-": tempOperator = "-"; break;
                     case "*": tempOperator = "\\*"; break;
                     case "/": tempOperator = "/"; break;
+                    default:break;
                 }
 
 
-                System.out.println("tempOperator(after change) = " + tempOperator);
 
 
             }
             System.out.println("(final)valStr = " + valStr);
 
             inputText.setText(valStr);
+            if(equalPossible) {
+                equalPossible = false;
+                backupString = valStr;
+                valStr = String.valueOf(result);
+                calCnt=0;
+            }
+            if(!dividePossible){
+                valStr="";
+                dividePossible=true;
+            }
         }
     }
 
