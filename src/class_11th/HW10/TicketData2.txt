@@ -1,0 +1,4 @@
+Jone,Bus,Child,Card,550,2
+Monica,Subway,Adult,Card,1750,1
+Jennifer,Subway,Student,Cash,1520,4
+Denis,Subway,Adult,Card,1950,2
